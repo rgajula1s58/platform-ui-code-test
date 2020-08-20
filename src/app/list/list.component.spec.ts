@@ -33,9 +33,30 @@ describe('ListComponent', () => {
     });
   });
 
-  describe('selected providers', () => {
-    it('should have no initial length', () => {
+  describe('selectProvider', () => {
+    beforeAll(() => {
+      component.selectProvider('1');
+    });
+    it('should put provider in the selected providers list', () => {
+      expect(component.selectedProviders.length).toEqual(1);
+      expect(component.selectedProviders[0].id).toEqual('1');
+    });
+    it('should remove the provider from the unselected providers list', () => {
+      expect(component.unselectedProviders.length).toEqual(2);
+      expect(component.unselectedProviders[0].id).not.toEqual('1');
+    });
+  });
+
+  describe('removeProvider', () => {
+    beforeAll(() => {
+      component.removeProvider('1');
+    });
+    it('should remove the provider from the selected list', () => {
       expect(component.selectedProviders.length).toEqual(0);
+    });
+    it('should put provider in the unselected provider list', () => {
+      expect(component.unselectedProviders.length).toEqual(3);
+      expect(component.unselectedProviders[2].id).toEqual('1');
     });
   });
 });
